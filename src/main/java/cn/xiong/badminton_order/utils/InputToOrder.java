@@ -15,16 +15,17 @@ import java.util.regex.Pattern;
 public class InputToOrder {
 
     //用户名以字母开头，数字、字母、下划线组成
-    private String inPattern = "^[A-Za-z][A-Za-z1-9_-]+ [1-9]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (20|21|22|23|[0-1]\\d):00\\d~(20|21|22|23|[0-1]\\d):00 [A-D]";
-    private String inPatternCancle = "^[A-Za-z][A-Za-z1-9_-]+ [1-9]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (20|21|22|23|[0-1]\\d):00~(20|21|22|23|[0-1]\\d):00 [A-D] C";
+    private String inPattern = "^[A-Za-z][A-Za-z0-9_-]+ [1-9]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (20|21|22|23|[0-1]\\d):00~(20|21|22|23|[0-1]\\d):00 [A-D]$";
+    private String inPatternCancle = "^[A-Za-z][A-Za-z0-9_-]+ [1-9]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (20|21|22|23|[0-1]\\d):00~(20|21|22|23|[0-1]\\d):00 [A-D] C$";
     private static InputToOrder inputToOrder;
 
     //核对输入是否正确
-    private Pattern inputPattern = Pattern.compile(inPattern);
     private Pattern inputPatternCancle = Pattern.compile(inPatternCancle);
+    private Pattern inputPattern = Pattern.compile(inPattern);
+
 
     //日期格式化
-    private SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
+    private SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm");
 
     public static InputToOrder getInstance(){
         if(inputToOrder == null){
@@ -33,57 +34,68 @@ public class InputToOrder {
         return inputToOrder;
     }
 
-    private Order getOrder(String input){
+    public Order getOrder(String input){
 
         Order order = null;
-        Matcher matcher = inputPattern.matcher(input);
         Matcher matcherCancle = inputPatternCancle.matcher(input);
+        Matcher matcher = inputPattern.matcher(input);
+
 
         //预定订单处理
         if(matcher.matches()){
 
             String[] data = input.split(" ");
+            String dateTime = data[1] +" "+ data[2].split("~")[0];
             try {
                 //时间是否正确(包括日期判断，日期是否在当前时间或者之后)
-                if(DateCheck.isDateCorrect(data[1])&&(formatter.parse(data[1]).getTime()>=formatter.parse(formatter.format(new Date())).getTime())){
+                if(DateCheck.isDateCorrect(data[1])&&(formatter.parse(dateTime).getTime()>=formatter.parse(formatter.format(new Date())).getTime())){
                     String[] time = data[2].split("~");
                     String startTime = time[0].substring(0,time[0].indexOf(":"));
                     String endTime = time[1].substring(0,time[1].indexOf(":"));
 
                     //时间是否大于当前时间，前后时间是否正确
-                    if((Integer.parseInt(startTime)> Calendar.getInstance().get(Calendar.HOUR_OF_DAY))&&Integer.parseInt(startTime)<Integer.parseInt(endTime)){
+                    int start = Integer.parseInt(startTime);
+                    int end = Integer.parseInt(endTime);
+                    if(start>=9 && end <= 22 && start < end){
                         order = new Order();
                         order.setFlag("order");
-                        order.setStartTime(startTime);
-                        order.setEndTime(endTime);
+                        order.setStart_time(start);
+                        order.setEnd_time(end);
                         order.setArea(data[3]);
                         order.setDate(data[1]);
                         order.setUid(data[0]);
+                        order.setMoney(CalMoney.getInstance().calAllMoney(data[1],start,end,true));
                     }
                 }
             } catch (ParseException e) {
+                e.printStackTrace();
             }
 
         }else if(matcherCancle.matches()){//取消订单处理
 
             String[] data = input.split(" ");
+            String dateTime = data[1] + " " + data[2].split("~")[0];
             try {
-                if(DateCheck.isDateCorrect(data[1])&&(formatter.parse(data[1]).getTime()>=formatter.parse(formatter.format(new Date())).getTime())){
+                if(DateCheck.isDateCorrect(data[1])&&(formatter.parse(dateTime).getTime()>=formatter.parse(formatter.format(new Date())).getTime())){
                     String[] time = data[2].split("~");
                     String startTime = time[0].substring(0,time[0].indexOf(":"));
                     String endTime = time[1].substring(0,time[1].indexOf(":"));
 
-                    if((Integer.parseInt(startTime)>Calendar.getInstance().get(Calendar.HOUR_OF_DAY))&&Integer.parseInt(startTime)<Integer.parseInt(endTime)){
+                    int start = Integer.parseInt(startTime);
+                    int end = Integer.parseInt(endTime);
+                    if(start>=9 && end <= 22 && start < end){
                         order = new Order();
                         order.setFlag("cancle");
-                        order.setStartTime(startTime);
-                        order.setEndTime(endTime);
+                        order.setStart_time(start);
+                        order.setEnd_time(end);
                         order.setArea(data[3]);
                         order.setDate(data[1]);
                         order.setUid(data[0]);
+                        order.setMoney(CalMoney.getInstance().calAllMoney(data[1],start,end,false));
                     }
                 }
             } catch (ParseException e) {
+                e.printStackTrace();
             }
 
         }
@@ -92,7 +104,7 @@ public class InputToOrder {
 
     public static void main(String[] args) {
 
-        String str = "U123 2017-09-09 12:00~22:00 A C";
+        String str = "U123 2017-09-11 10:00~19:00 B";
         Order order = getInstance().getOrder(str);
         System.out.println(order);
     }

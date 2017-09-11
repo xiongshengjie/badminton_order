@@ -10,11 +10,11 @@ public class Order implements Serializable {
     private String id;
     private String uid;
     private String date;
-    private String startTime;
-    private String endTime;
+    private int start_time;
+    private int end_time;
     private String area;
     private String flag;
-    private int money;
+    private float money;
 
     public String getUid() {
         return uid;
@@ -32,20 +32,20 @@ public class Order implements Serializable {
         this.date = date;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public int getStart_time() {
+        return start_time;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setStart_time(int start_time) {
+        this.start_time = start_time;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public int getEnd_time() {
+        return end_time;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setEnd_time(int end_time) {
+        this.end_time = end_time;
     }
 
     public String getArea() {
@@ -72,11 +72,11 @@ public class Order implements Serializable {
         this.flag = flag;
     }
 
-    public int getMoney() {
+    public float getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(float money) {
         this.money = money;
     }
 }
