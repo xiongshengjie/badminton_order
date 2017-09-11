@@ -51,87 +51,81 @@ public class OrderService {
     }
 
     public void listInMoney(){
-        int countA=0,countB=0,countC=0,countD=0;
         float sumA=0,sumB=0,sumC=0,sumD=0;
         System.out.println("收入汇总");
         System.out.println("---");
         try {
             List<Order> list = dao.getAllOrder();
-            for(Order order:list){
-                if(order.getArea().equals("A")){
-                    if(countA==0){
-                        System.out.println("场地:A");
-                        countA++;
-                    }
-                    if(order.getFlag().equals("order")){
-                        if(order.getStart_time()==9){
-                            System.out.println(order.getDate()+" "+"0"+order.getStart_time()+":00~"+order.getEnd_time()+":00 "+order.getMoney()+"元");
-                        }else {
-                            System.out.println(order.getDate()+" "+order.getStart_time()+":00~"+order.getEnd_time()+":00 "+order.getMoney()+"元");
+            System.out.println("场地:A");
+            for(Order order:list) {
+                if (order.getArea().equals("A")) {
+                    if (order.getFlag().equals("order")) {
+                        if (order.getStart_time() == 9) {
+                            System.out.println(order.getDate() + " " + "0" + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 " + order.getMoney() + "元");
+                        } else {
+                            System.out.println(order.getDate() + " " + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 " + order.getMoney() + "元");
                         }
 
-                    }else{
-                        if(order.getStart_time()==9){
-                            System.out.println(order.getDate()+" "+"0"+order.getStart_time()+":00~"+order.getEnd_time()+":00 违约金 "+order.getMoney()+"元");
-                        }else {
-                            System.out.println(order.getDate()+" "+order.getStart_time()+":00~"+order.getEnd_time()+":00 违约金 "+order.getMoney()+"元");
+                    } else {
+                        if (order.getStart_time() == 9) {
+                            System.out.println(order.getDate() + " " + "0" + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 违约金 " + order.getMoney() + "元");
+                        } else {
+                            System.out.println(order.getDate() + " " + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 违约金 " + order.getMoney() + "元");
                         }
                     }
                     sumA += order.getMoney();
-                }else if(order.getArea().equals("B")){
-
-                    if(countB==0){
-                        System.out.println("小计:"+sumA+"元");
-                        System.out.println();
-                        System.out.println("场地:B");
-                        countB++;
-                    }
-                    if(order.getFlag().equals("order")){
-                        if(order.getStart_time()==9){
-                            System.out.println(order.getDate()+" "+"0"+order.getStart_time()+":00~"+order.getEnd_time()+":00 "+order.getMoney()+"元");
-                        }else {
-                            System.out.println(order.getDate()+" "+order.getStart_time()+":00~"+order.getEnd_time()+":00 "+order.getMoney()+"元");
+                }
+            }
+            System.out.println("小计:"+sumA+"元");
+            System.out.println();
+            System.out.println("场地:B");
+            for (Order order:list) {
+                if (order.getArea().equals("B")) {
+                    if (order.getFlag().equals("order")) {
+                        if (order.getStart_time() == 9) {
+                            System.out.println(order.getDate() + " " + "0" + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 " + order.getMoney() + "元");
+                        } else {
+                            System.out.println(order.getDate() + " " + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 " + order.getMoney() + "元");
                         }
 
-                    }else{
-                        if(order.getStart_time()==9){
-                            System.out.println(order.getDate()+" "+"0"+order.getStart_time()+":00~"+order.getEnd_time()+":00 违约金 "+order.getMoney()+"元");
-                        }else {
-                            System.out.println(order.getDate()+" "+order.getStart_time()+":00~"+order.getEnd_time()+":00 违约金 "+order.getMoney()+"元");
+                    } else {
+                        if (order.getStart_time() == 9) {
+                            System.out.println(order.getDate() + " " + "0" + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 违约金 " + order.getMoney() + "元");
+                        } else {
+                            System.out.println(order.getDate() + " " + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 违约金 " + order.getMoney() + "元");
                         }
                     }
                     sumB += order.getMoney();
-                } else if(order.getArea().equals("C")){
+                }
+            }
+            System.out.println("小计:"+sumB+"元");
+            System.out.println();
+            System.out.println("场地:C");
+            for(Order order:list) {
+                if (order.getArea().equals("C")) {
 
-                    if(countC==0){
-                        System.out.println("小计:"+sumB+"元");
-                        System.out.println();
-                        System.out.println("场地:C");
-                        countC++;
-                    }
-                    if(order.getFlag().equals("order")){
-                        if(order.getStart_time()==9){
-                            System.out.println(order.getDate()+" "+"0"+order.getStart_time()+":00~"+order.getEnd_time()+":00 "+order.getMoney()+"元");
-                        }else {
-                            System.out.println(order.getDate()+" "+order.getStart_time()+":00~"+order.getEnd_time()+":00 "+order.getMoney()+"元");
+                    if (order.getFlag().equals("order")) {
+                        if (order.getStart_time() == 9) {
+                            System.out.println(order.getDate() + " " + "0" + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 " + order.getMoney() + "元");
+                        } else {
+                            System.out.println(order.getDate() + " " + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 " + order.getMoney() + "元");
                         }
 
-                    }else{
-                        if(order.getStart_time()==9){
-                            System.out.println(order.getDate()+" "+"0"+order.getStart_time()+":00~"+order.getEnd_time()+":00 违约金 "+order.getMoney()+"元");
-                        }else {
-                            System.out.println(order.getDate()+" "+order.getStart_time()+":00~"+order.getEnd_time()+":00 违约金 "+order.getMoney()+"元");
+                    } else {
+                        if (order.getStart_time() == 9) {
+                            System.out.println(order.getDate() + " " + "0" + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 违约金 " + order.getMoney() + "元");
+                        } else {
+                            System.out.println(order.getDate() + " " + order.getStart_time() + ":00~" + order.getEnd_time() + ":00 违约金 " + order.getMoney() + "元");
                         }
                     }
                     sumC += order.getMoney();
-                }else if(order.getArea().equals("D")){
-
-                    if(countD==0){
-                        System.out.println("小计:"+sumC+"元");
-                        System.out.println();
-                        System.out.println("场地:D");
-                        countD++;
-                    }
+                }
+            }
+            System.out.println("小计:"+sumC+"元");
+            System.out.println();
+            System.out.println("场地:D");
+            for (Order order:list){
+            if(order.getArea().equals("D")){
                     if(order.getFlag().equals("order")){
                         if(order.getStart_time()==9){
                             System.out.println(order.getDate()+" "+"0"+order.getStart_time()+":00~"+order.getEnd_time()+":00 "+order.getMoney()+"元");

@@ -18,6 +18,8 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for `badminton_order`
 -- ----------------------------
+CREATE DATABASE 'badminton_order';
+USE badminton_order;
 DROP TABLE IF EXISTS `badminton_order`;
 CREATE TABLE `badminton_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
