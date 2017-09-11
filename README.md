@@ -11,6 +11,7 @@
        将user与password修改为当前数据库的用户名与密码，并保存  
      --运行cmd，并到修改后的order-jar-with-dependencies.jar目录下，输入  
        java -jar order-with-dependcies.jar，即可运行，进行测试
+   **用户名为字母开头，如果不为字母开头，预定无法成功**
 ### 配置文件
 #### c3p0-config.xml
      c3p0数据库连接池的配置文件，使用时需要将其中的user和password修改为你自己的
