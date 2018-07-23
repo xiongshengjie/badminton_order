@@ -41,18 +41,21 @@
      
 #### cn.xiong.badminton_order.dao
      本包为dao层交互数据库的包，其中包含5个方法  
-```int addOrder(Order order)```:添加订单  
-```int updateOrder(Order order)```:更新订单，取消预定时使用  
-```List<Order> getTimeOrder(Order order)```:查询是否有冲突订单  
-```Order getCancleOrder(Order order)```:查询取消的订单是否存在  
-```List<Order> getAllOrder()```:查询所有订单，提供统计  
+```
+     int addOrder(Order order)      // 添加订单  
+     int updateOrder(Order order)   // 更新订单，取消预定时使用  
+     List<Order> getTimeOrder(Order order)    // 查询是否有冲突订单  
+     Order getCancleOrder(Order order)    // 查询取消的订单是否存在  
+     List<Order> getAllOrder()            // 查询所有订单，提供统计  
+```
      
 #### cn.xiong.badminton_order.service
      本包为业务逻辑层，其中有三个方法  
-```boolean addOrder(Order order)```:添加订单  
-```boolean cancleOrder(Order order)```:取消订单  
-```void listInMoney()```:统计输出  
-     
+```
+     boolean addOrder(Order order)        \\ 添加订单  
+     boolean cancleOrder(Order order)     \\ 取消订单  
+     void listInMoney()                   \\ 统计输出  
+```
 #### cn.xiong.badminton_order.utils
      本包为工具类，提供各种处理支持
 ##### CalMoney
